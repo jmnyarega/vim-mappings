@@ -50,7 +50,7 @@ nnoremap <ESC> :cclose <CR>
 nnoremap <TAB> :copen <CR>
 nnoremap <C-t> :terminal <CR>
 
-nnoremap <leader>* :Grepper -cword -noprompt <CR>
+nnoremap <leader>s :CocSearch<Space>
 nnoremap <leader>f :Grepper <CR>
 nmap gs <plug>(GrepperOperator) 
 xmap gs <plug>(GrepperOperator)
