@@ -12,8 +12,8 @@ vnoremap K :m '<-2<CR>gv=gv
 vnoremap <C-_> :Commentary<CR>
 vnoremap <leader>y "+y
 
-xnoremap f :m-2<CR>gv=gv
-xnoremap z :m'>+<CR>gv=gv
+xnoremap <up> :m-2<CR>gv=gv
+xnoremap <down> :m'>+<CR>gv=gv
 xnoremap <leader>p "_dP
 
 inoremap <C-c> <esc>
@@ -41,9 +41,13 @@ nnoremap gt : <space>
 nnoremap <Leader>1 CR>
 
 nnoremap <C-p> :<C-u>FZF<CR>
-nnoremap <F5> :make! <CR>
-nnoremap <leader>h :cfirst <CR>
-nnoremap <leader>j :cprev <CR>
+nnoremap <leader>zz :set nofoldenable <CR>
+nnoremap <leader>z :set foldenable <CR>
+
+autocmd FileType typescript nmap <F5> :FloatermNew --autoclose=0 ts-node % <CR>
+autocmd FileType python nmap <F5> :FloatermNew --autoclose=0 python3 % <CR>
+autocmd FileType javascript nmap <F5> :FloatermNew --autoclose=0 node % <CR>
+
 nnoremap <leader>k :cnext <CR>
 nnoremap <leader>l :clast <CR>
 nnoremap <ESC> :cclose <CR>
@@ -54,6 +58,7 @@ nnoremap <leader>s :CocSearch<Space>
 nnoremap <leader>f :Grepper <CR>
 nmap gs <plug>(GrepperOperator) 
 xmap gs <plug>(GrepperOperator)
+nmap <leader>g :Git <CR>
 
 
 " Use tab for trigger completion with characters ahead and navigate
@@ -113,8 +118,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+vmap <leader>f <Plug>(coc-format-selected)
+nmap <leader>f :call CocActionAsync('format') <CR>
 
 augroup mygroup
   autocmd!
