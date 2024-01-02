@@ -36,29 +36,30 @@ nnoremap <leader>y "+y
 nnoremap <leader>Y gg"+yG
 nnoremap <leader>d "_d
 nnoremap <leader>i :set mouse=a<CR>
-nnoremap <leader>I :set mouse=<CR>
-nnoremap gt : <space>
-nnoremap <Leader>1 CR>
+nnoremap <leader>m :set mouse=<CR>
 
-nnoremap <C-p> :<C-u>FZF<CR>
+nnoremap <C-p> :<C-u>FloatermNew fzf<CR>
 nnoremap <leader>zz :set nofoldenable <CR>
 nnoremap <leader>z :set foldenable <CR>
 
-autocmd FileType typescript nmap <F5> :FloatermNew --autoclose=0 ts-node % <CR>
-autocmd FileType python nmap <F5> :FloatermNew --autoclose=0 python3 % <CR>
-autocmd FileType javascript nmap <F5> :FloatermNew --autoclose=0 node % <CR>
+noremap <F5> :CocList tasks run<CR>
+let g:asynctasks_term_pos = 'right'
+let g:asynctasks_term_rows = 10
+let g:asynctasks_term_cols = 80
 
-nnoremap <leader>k :cnext <CR>
-nnoremap <leader>l :clast <CR>
 nnoremap <ESC> :cclose <CR>
 nnoremap <TAB> :copen <CR>
 nnoremap <C-t> :terminal <CR>
 
-nnoremap <leader>s :CocSearch<Space>
-nnoremap <leader>f :Grepper <CR>
-nmap gs <plug>(GrepperOperator) 
-xmap gs <plug>(GrepperOperator)
-nmap <leader>g :Git <CR>
+nnoremap <silent><nowait> <leader>/  :<C-u>FloatermNew rg<space>
+nnoremap <silent><nowait> <leader>g  :<C-u>FloatermNew lazygit<cr>
+let g:asyncrun_open = 6
+
+" nnoremap <leader>s :CocSearch<Space>
+" nnoremap <leader>f :Grepper <CR>
+" nmap gs <plug>(GrepperOperator) 
+" xmap gs <plug>(GrepperOperator)
+" nmap <leader>g :Git <CR>
 
 
 " Use tab for trigger completion with characters ahead and navigate
@@ -91,8 +92,8 @@ endif
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation
 nmap <silent> gd <Plug>(coc-definition)
@@ -119,7 +120,7 @@ nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code
 vmap <leader>f <Plug>(coc-format-selected)
-nmap <leader>f :call CocActionAsync('format') <CR>
+nmap <leader>f <Plug>(coc-format)
 
 augroup mygroup
   autocmd!
@@ -131,11 +132,8 @@ augroup end
 
 " Applying code actions to the selected code block
 " Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
 " Remap keys for applying code actions at the cursor position
-nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+nmap <leader>a  <Plug>(coc-codeaction-cursor)
 " Remap keys for apply code actions affect whole buffer
 nmap <leader>as  <Plug>(coc-codeaction-source)
 " Apply the most preferred quickfix action to fix diagnostic on the current line
@@ -190,8 +188,10 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
+" Open issues
+nnoremap <silent><nowait> <space>w  :<C-u>CocList issues<cr>
 " Show all diagnostics
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <space>d  :<C-u>CocList diagnostics<cr>
 " Manage extensions
 nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
@@ -200,9 +200,5 @@ nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
 nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
 nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
+
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
