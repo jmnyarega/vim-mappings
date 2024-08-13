@@ -38,9 +38,11 @@ nnoremap <leader>d "_d
 nnoremap <leader>i :set mouse=a<CR>
 nnoremap <leader>m :set mouse=<CR>
 
-nnoremap <C-p> :<C-u>FloatermNew fzf<CR>
+nnoremap <C-p> :Files <CR>
 nnoremap <leader>zz :set nofoldenable <CR>
 nnoremap <leader>z :set foldenable <CR>
+nnoremap <C-B> :Buffers <CR>
+nnoremap <C-G> :Git <CR>
 
 noremap <F5> :CocList tasks run<CR>
 let g:asynctasks_term_pos = 'right'
