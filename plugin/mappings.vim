@@ -16,7 +16,10 @@ xnoremap <up> :m-2<CR>gv=gv
 xnoremap <down> :m'>+<CR>gv=gv
 xnoremap <leader>p "_dP
 
-inoremap <C-c> <esc>
+inoremap <C-c> <Esc>
+inoremap <CapsLock> <Esc>
+vnoremap <CapsLock> <Esc>
+nnoremap <CapsLock> <Esc>
 
 nnoremap Y yg$
 nnoremap n nzzzv
@@ -38,7 +41,8 @@ nnoremap <leader>d "_d
 nnoremap <leader>i :set mouse=a<CR>
 nnoremap <leader>m :set mouse=<CR>
 
-nnoremap <C-p> :Files <CR>
+nnoremap <C-p> :GFiles <CR>
+nnoremap <C-f> :GFiles <CR>
 nnoremap <leader>zz :set nofoldenable <CR>
 nnoremap <leader>z :set foldenable <CR>
 nnoremap <C-B> :Buffers <CR>
@@ -53,7 +57,8 @@ nnoremap <ESC> :cclose <CR>
 nnoremap <leader><TAB> :copen <CR>
 nnoremap <C-t> :terminal <CR>
 
-nnoremap <silent><nowait> <leader>/  :<C-u>FloatermNew rg<space>
+nnoremap <silent><nowait> <leader>b  :Jumps <CR>
+nnoremap <silent><nowait> <leader>/  :<C-u>AnyJumpArg <space>
 nnoremap <silent><nowait> <leader>g  :<C-u>FloatermNew lazygit<cr>
 let g:asyncrun_open = 6
 
@@ -69,28 +74,28 @@ let g:asyncrun_open = 6
 " no select by `"suggest.noselect": true` in your configuration file
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config
-" inoremap <silent><expr> <TAB>
-"       \ coc#pum#visible() ? coc#pum#next(1) :
-"       \ CheckBackspace() ? "\<Tab>" :
-"       \ coc#refresh()
-" inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
-" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-"                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" function! CheckBackspace() abort
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~# '\s'
-" endfunction
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 " Use <c-space> to trigger completion
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+" if has('nvim')
+"   inoremap <silent><expr> <c-space> coc#refresh()
+" else
+"   inoremap <silent><expr> <c-@> coc#refresh()
+" endif
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
@@ -123,14 +128,6 @@ nmap <leader>rn <Plug>(coc-rename)
 " Formatting selected code
 vmap <leader>f <Plug>(coc-format-selected)
 nmap <leader>f <Plug>(coc-format)
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s)
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
 
 " Applying code actions to the selected code block
 " Example: `<leader>aap` for current paragraph
